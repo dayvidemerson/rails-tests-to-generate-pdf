@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @collaborator.name %>
+</p>
+
+<p>
+  <strong>Salary:</strong>
+  <%= @collaborator.salary %>
+</p>
+
+<p>
+  <strong>Admission date:</strong>
+  <%= @collaborator.admission_date %>
+</p>
+
+<%= link_to 'Edit', edit_collaborator_path(@collaborator) %> |
+<%= link_to 'Back', collaborators_path %>
