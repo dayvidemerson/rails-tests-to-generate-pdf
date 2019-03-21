@@ -1,7 +1,7 @@
 class CollaboratorsController < ApplicationController
   require 'benchmark'
   before_action :set_collaborator, only: [:show, :edit, :update, :destroy]
-  LIMIT = 277
+  LIMIT = 1000
 
   # GET /collaborators
   # GET /collaborators.json
@@ -68,9 +68,9 @@ class CollaboratorsController < ApplicationController
 
     pdf_options = {
       :page_layout => :portrait,
-      :page_size => "A4",
+      :page_size => "LETTER",
       :skip_page_creation => false,
-      :margin => [30, 50, 20, 30]
+      :margin => [50, 50, 50, 50]
     }
 
     puts "Iniciando benchmark"
@@ -78,12 +78,87 @@ class CollaboratorsController < ApplicationController
     memory_before = GetProcessMem.new.mb
     benchmark = Benchmark.measure do
       Prawn::Document.new(pdf_options) do |pdf|
+
         pdf.repeat(:all) do
-          pdf.draw_text 'H7DRA - Fila Ambulatorial - [FILA]', at: pdf.bounds.top_left
-          pdf.draw_text '[Data]', at: pdf.bounds.top_right
+          pdf.bounding_box [pdf.bounds.left, pdf.bounds.top], :width  => pdf.bounds.width do
+            pdf.font "Helvetica"
+            pdf.text 'H7DRA - Fila Ambulatorial - [FILA]'
+          end
+
+          pdf.bounding_box [pdf.bounds.right - 60, pdf.bounds.top], :width  => pdf.bounds.width do
+            pdf.font "Helvetica"
+            pdf.text "#{Date.today.strftime("%d/%m/%Y")}"
+          end
+
         end
-        pdf.table @collaborators.collect{ |c| [ c.name, c.salary ]}
-        pdf.start_new_page
+
+        pdf.move_down 20
+
+        pdf.font_size(20) {
+          pdf.formatted_text [
+            {
+              text: "FILA AMBULATORIAL",
+              styles: [:bold]
+            }
+          ]
+        }
+        pdf.move_down 10
+
+        pdf.text 'Filtros: Sexo: Masculino; Idade de: 10; Idade até: 20'
+
+        pdf.move_down 10
+
+        @collaborators.each_with_index do |c, index|
+          if (index+1) % 5 == 0
+            pdf.start_new_page
+            pdf.move_down 20
+          end
+          pdf.span(pdf.bounds.width) do
+            data = [
+              [ { content: c.name, colspan: 3, size: 12 } ],
+              [ "Cartão: #{c.created_at}", "Espera: #{c.created_at}", "CID: #{c.created_at}" ],
+              [ "Idade: #{c.created_at}", "Especialidade: #{c.created_at}", "Descrição Clínica: #{c.created_at}" ],
+              [ "Sexo: #{c.created_at}", { content: "Prioridade: #{c.created_at}", colspan: 2 } ],
+              [ "Origem: #{c.created_at}", { content: "Caráter: #{c.created_at}", colspan: 2 } ],
+              [ "Status: #{c.created_at}", { content: "Solicitante: #{c.created_at}", colspan: 2 } ],
+              [ "Desde: #{c.created_at}", { content: "Operador: #{c.created_at}", colspan: 2 } ],
+              [ { content: "Enviado RMT: #{c.created_at}", colspan: 3 } ]
+            ]
+            table_options = {
+              :width => pdf.bounds.width
+            }
+            pdf.table(data, table_options) do |table|
+              table.cells.border_widths = [0, 0, 0, 0]
+              table.cells.padding = 2
+              table.row(0).font_style = :bold
+              table.row(0).borders = [:top, :left, :right]
+              table.row(0).border_widths = [1, 1, 0, 1]
+              
+              table.row(1..7).size = 9
+
+              table.row(1..6).borders = [:left, :right]
+
+              table.row(1..2).column(0).border_widths = [0, 0, 0, 1]
+              table.row(1..2).column(2).border_widths = [0, 1, 0, 0]
+              table.row(3..6).column(0).border_widths = [0, 0, 0, 1]
+              table.row(3..6).column(1).border_widths = [0, 1, 0, 0]
+              
+              table.row(7).borders = [:bottom, :left, :right]
+              table.row(7).border_widths = [0, 1, 1, 1]
+            end
+          end
+        end
+        numbering_text = 'Página <page> de <total>'
+
+        numbering_options = {
+          at: [pdf.bounds.right - 150, 0],
+          width: 150,
+          align: :right,
+          page_filter: (1..7),
+          start_count_at: 1
+        }
+        
+        pdf.number_pages numbering_text, numbering_options
         pdf.render_file('public/pdf/collaborators-prawn-from-ruby.pdf')
       end
     end
