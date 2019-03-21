@@ -46,4 +46,20 @@ group :development do
 end
 
 
-gem "prawn-rails", "~> 1.2"
+gem "prawn-rails"
+
+gem "bootstrap", "~> 4.3"
+
+gem "wicked_pdf", "~> 1.2"
+
+gem "wkhtmltopdf-binary", "~> 0.12.4"
+
+gem "get_process_mem", "~> 0.2.3"
+
+gem "pdfkit", "~> 0.8.4"
+
+gem "libreconv", "~> 0.9.1"
+
+gem "odf-report", "~> 0.6.0"
+
+gem "docsplit", "~> 0.7.6"

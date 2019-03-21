@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190319141325) do
+ActiveRecord::Schema.define(version: 20190320165633) do
+
+  create_table "benchmark_tests", force: :cascade do |t|
+    t.string   "description"
+    t.string   "from"
+    t.string   "url"
+    t.decimal  "user_cpu_time"
+    t.decimal  "system_cpu_time"
+    t.decimal  "total_cpu_time"
+    t.decimal  "real_cpu_time"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.decimal  "memory_usage"
+    t.integer  "quantity"
+  end
 
   create_table "collaborators", force: :cascade do |t|
     t.string   "name"

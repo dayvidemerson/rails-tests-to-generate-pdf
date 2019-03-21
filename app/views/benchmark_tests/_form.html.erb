@@ -1,0 +1,45 @@
+<%= form_for(@benchmark_test) do |f| %>
+  <% if @benchmark_test.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@benchmark_test.errors.count, "error") %> prohibited this benchmark_test from being saved:</h2>
+
+      <ul>
+      <% @benchmark_test.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :from %><br>
+    <%= f.text_field :from %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :user_cpu_time %><br>
+    <%= f.text_field :user_cpu_time %>
+  </div>
+  <div class="field">
+    <%= f.label :system_cpu_time %><br>
+    <%= f.text_field :system_cpu_time %>
+  </div>
+  <div class="field">
+    <%= f.label :total_cpu_time %><br>
+    <%= f.text_field :total_cpu_time %>
+  </div>
+  <div class="field">
+    <%= f.label :real_cpu_time %><br>
+    <%= f.text_field :real_cpu_time %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

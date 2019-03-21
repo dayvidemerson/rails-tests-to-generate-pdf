@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @benchmark_test.description %>
+</p>
+
+<p>
+  <strong>From:</strong>
+  <%= @benchmark_test.from %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @benchmark_test.url %>
+</p>
+
+<p>
+  <strong>User cpu time:</strong>
+  <%= @benchmark_test.user_cpu_time %>
+</p>
+
+<p>
+  <strong>System cpu time:</strong>
+  <%= @benchmark_test.system_cpu_time %>
+</p>
+
+<p>
+  <strong>Total cpu time:</strong>
+  <%= @benchmark_test.total_cpu_time %>
+</p>
+
+<p>
+  <strong>Real cpu time:</strong>
+  <%= @benchmark_test.real_cpu_time %>
+</p>
+
+<%= link_to 'Edit', edit_benchmark_test_path(@benchmark_test) %> |
+<%= link_to 'Back', benchmark_tests_path %>

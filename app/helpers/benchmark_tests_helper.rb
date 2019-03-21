@@ -1,0 +1,2 @@
+module BenchmarkTestsHelper
+end

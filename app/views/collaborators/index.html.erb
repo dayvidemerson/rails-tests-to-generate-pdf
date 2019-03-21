@@ -2,7 +2,15 @@
 
 <h1>Listing Collaborators</h1>
 
-<table>
+<div class="jumbotron">
+  <%= link_to 'Export With PDFKit', export_with_pdfkit_collaborators_path, target: "_blank", class:"btn btn-info" %>
+  <%= link_to 'Export With Wicked', export_with_wicked_collaborators_path, target: "_blank", class:"btn btn-info" %>
+  <%= link_to 'Export With Prawn', export_with_prawn_collaborators_path, target: "_blank", class:"btn btn-info" %>
+  <%= link_to 'Export With Libreconv', export_with_libreconv_collaborators_path, target: "_blank", class:"btn btn-info" %>
+  <%= link_to 'Export With Docsplit', export_with_docsplit_collaborators_path, target: "_blank", class:"btn btn-info" %>
+</div>
+
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>

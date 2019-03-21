@@ -1,5 +1,21 @@
 Rails.application.routes.draw do
-  resources :collaborators
+  resources :benchmark_tests
+  resources :benchmark_tests
+  resources :benchmark_tests
+  resources :collaborators do
+    collection do
+      # /collaborators/export_with_prawn
+      get 'export_with_prawn'
+      # /collaborators/export_with_wicked
+      get 'export_with_wicked'
+      # /collaborators/export_with_pdfkit
+      get 'export_with_pdfkit'
+      # /collaborators/export_with_libreconv
+      get 'export_with_libreconv'
+      # /collaborators/export_with_docsplit
+      get 'export_with_docsplit'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

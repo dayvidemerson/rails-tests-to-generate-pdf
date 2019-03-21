@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Benchmark Tests</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>From</th>
+      <th>Quantity</th>
+      <th>Memory Usage</th>
+      <th>User cpu time</th>
+      <th>System cpu time</th>
+      <th>Total cpu time</th>
+      <th>Real cpu time</th>
+      <th>Url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @benchmark_tests.each do |benchmark_test| %>
+      <tr>
+        <td><%= benchmark_test.description %></td>
+        <td><%= benchmark_test.from %></td>
+        <td><%= benchmark_test.quantity %></td>
+        <td><%= benchmark_test.memory_usage %></td>
+        <td><%= benchmark_test.user_cpu_time %></td>
+        <td><%= benchmark_test.system_cpu_time %></td>
+        <td><%= benchmark_test.total_cpu_time %></td>
+        <td><%= benchmark_test.real_cpu_time %></td>
+        <td><%= link_to 'Arquivo', benchmark_test.url, target: "_blank" %></td>
+        <td><%= link_to 'Show', benchmark_test %></td>
+        <td><%= link_to 'Edit', edit_benchmark_test_path(benchmark_test) %></td>
+        <td><%= link_to 'Destroy', benchmark_test, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Benchmark test', new_benchmark_test_path %>
