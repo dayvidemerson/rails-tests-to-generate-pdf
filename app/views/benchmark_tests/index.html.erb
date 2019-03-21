@@ -24,11 +24,11 @@
         <td><%= benchmark_test.description %></td>
         <td><%= benchmark_test.from %></td>
         <td><%= benchmark_test.quantity %></td>
-        <td><%= benchmark_test.memory_usage %></td>
-        <td><%= benchmark_test.user_cpu_time %></td>
-        <td><%= benchmark_test.system_cpu_time %></td>
-        <td><%= benchmark_test.total_cpu_time %></td>
-        <td><%= benchmark_test.real_cpu_time %></td>
+        <td><%= number_to_human(benchmark_test.memory_usage, precision: 2) %> mb</td>
+        <td><%= number_to_human(benchmark_test.user_cpu_time, precision: 2) %> s</td>
+        <td><%= number_to_human(benchmark_test.system_cpu_time, precision: 2) %> s</td>
+        <td><%= number_to_human(benchmark_test.total_cpu_time, precision: 2) %> s</td>
+        <td><%= number_to_human(benchmark_test.real_cpu_time, precision: 2) %> s</td>
         <td><%= link_to 'Arquivo', benchmark_test.url, target: "_blank" %></td>
         <td><%= link_to 'Show', benchmark_test %></td>
         <td><%= link_to 'Edit', edit_benchmark_test_path(benchmark_test) %></td>

@@ -203,7 +203,7 @@ DEPENDENCIES
   jquery-rails
   libreconv (~> 0.9.1)
   odf-report (~> 0.6.0)
-  pdfkit (~> 0.8.4)
+  pdfkit (~> 0.8.4.1)
   prawn-rails
   rails (= 4.2.5)
   sass-rails (~> 5.0)

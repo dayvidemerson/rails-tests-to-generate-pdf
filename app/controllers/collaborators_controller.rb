@@ -1,7 +1,7 @@
 class CollaboratorsController < ApplicationController
   require 'benchmark'
   before_action :set_collaborator, only: [:show, :edit, :update, :destroy]
-  LIMIT = 1000
+  LIMIT = 10
 
   # GET /collaborators
   # GET /collaborators.json
@@ -215,15 +215,30 @@ class CollaboratorsController < ApplicationController
     pdf
   end
 
+  def render_header_footer(type)
+    compiled = ERB.new(File.read("#{Rails.root}/app/views/collaborators/report-pdfkit/#{type}.html.erb")).result(binding)
+    file = Tempfile.new(["#{type}",".html"])
+    file.write(compiled)
+    file.rewind
+    file.path
+  end
+
   def export_with_pdfkit
     puts "Iniciando benchmark"
     @collaborators = Collaborator.limit(LIMIT)
-    html = nil
+    file = nil
     memory_before = GetProcessMem.new.mb
     benchmark = Benchmark.measure do
-      html = render template: 'collaborators/export_with_wicked'
-      kit = PDFKit.new(html[0], page_size: 'A4')
-      kit.to_file Rails.root.join('public/pdf', 'collaborators-pdfkit-from-html.pdf')
+      html = render_to_string 'collaborators/report-pdfkit/content', layout: false
+      header = render_header_footer('header')
+      footer = render_header_footer('footer')
+      kit = PDFKit.new(
+        html,
+        :header_html => header,
+        :footer_html => footer
+      )
+      filepath = Rails.root.join('public/pdf', 'collaborators-pdfkit-from-html.pdf')
+      file = kit.to_file filepath
     end
     memory_after = GetProcessMem.new.mb
     memory_usage = memory_after - memory_before
@@ -239,7 +254,7 @@ class CollaboratorsController < ApplicationController
       real_cpu_time: benchmark.real
     )
     puts "Finalizando benchmark"
-    html
+    send_file(file)
   end
 
   def export_with_libreconv

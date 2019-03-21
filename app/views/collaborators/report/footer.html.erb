@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    function number_pages() {
+      var vars={};
+      var x=document.location.search.substring(1).split('&');
+      for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = decodeURIComponent(z[1]);}
+      var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+      for(var i in x) {
+        var y = document.getElementsByClassName(x[i]);
+        for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+      }
+    }
+  </script>
+  <style>
+  footer {
+    font-size: 12pt;
+    padding-top: 20px;
+  }
+  
+  .left {
+    float: left;
+    width: 50%;
+  }
+  
+  .right {
+    width: 50%;
+    text-align: right;
+    float: right;
+  }
+  </style>
+</head>
+<body onload="number_pages()">
+  <footer>
+    <div class="left">
+      SESAPI
+    </div>
+    <div class="right">
+      Página <span class="page"></span> de <span class="topage"></span>
+    </div>
+  </footer>
+</body>
+</html>

@@ -56,7 +56,7 @@ gem "wkhtmltopdf-binary", "~> 0.12.4"
 
 gem "get_process_mem", "~> 0.2.3"
 
-gem "pdfkit", "~> 0.8.4"
+gem "pdfkit", "~> 0.8.4.1"
 
 gem "libreconv", "~> 0.9.1"
 
